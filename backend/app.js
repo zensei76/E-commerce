@@ -10,14 +10,21 @@ const app = express();
 const CLIENT_URL = process.env.FRONTEND_URL || "https://e-commerce-azure-xi.vercel.app";
 
 // Middleware
+// app.use(
+// 	cors({
+// 		origin: CLIENT_URL,
+// 		credentials: true,
+// 	})
+// );
+
 app.use(
 	cors({
-		origin: CLIENT_URL,
-		credentials: true,
+	  origin: '*', 
+	  methods: "GET,POST,PUT,DELETE,OPTIONS",
+	  allowedHeaders: "Content-Type,Authorization",
+	  credentials: true,
 	})
-);
-
-
+  );
 
 app.use(express.json());
 
