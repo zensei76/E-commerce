@@ -12,7 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <CartProvider> 
-        <Toaster /> 
+        <Toaster position="top-center" /> 
         <App />
       </CartProvider>
     </BrowserRouter>
