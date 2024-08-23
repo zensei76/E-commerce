@@ -7,7 +7,7 @@ config();
 
 const app = express();
 
-const CLIENT_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const CLIENT_URL = process.env.FRONTEND_URL || "https://e-commerce-azure-xi.vercel.app";
 
 // Middleware
 app.use(
