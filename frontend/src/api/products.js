@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_SERVER_URL;
+const BASE_URL = "https://e-commerce-server-nc1j.onrender.com/api/v1";
 
 export const getProducts = async () => {
 	try {
