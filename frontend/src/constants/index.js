@@ -1,1 +1,1 @@
-export const SERVER_URL = "https://e-commerce-server-nc1j.onrender.com";
+export const SERVER_URL = process.env.REACT_APP_SERVER_URL;
