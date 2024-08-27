@@ -1,56 +1,78 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { SERVER_URL } from "../constants";
+import { toast } from "sonner";
 
 const CartContext = createContext(undefined);
 
+const BASE_URL = SERVER_URL || "http://localhost:5000/api/v1";
+
 export function CartProvider({ children }) {
+    const [cart, setCart] = useState({ items: [], totalItems: 0, totalPrice: 0 });
 
-  const [cart, setCart] = useState({ items: [] });
+    const fetchCart = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/cart`);
+            setCart(response.data);
+        } catch (error) {
+            console.error("Error fetching cart:", error);
+        }
+    };
 
-  
-  const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.items.find((item) => item.id === product.id);
-      if (existingItem) {
-        return {
-          items: prevCart.items.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          ),
-        };
-      }
-      return { items: [...prevCart.items, { ...product, quantity: 1 }] };
-    });
-  };
+    useEffect(() => {
+        fetchCart();
+    }, []);
 
- 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => ({
-      items: prevCart.items.filter((item) => item.id !== productId),
-    }));
-  };
+    const addToCart = async (product) => {
+        try {
+            const response = await axios.post(`${BASE_URL}/cart/add`, product);
+            setCart(response.data);
+        } catch (error) {
+            console.error("Error adding to cart:", error);
+            toast.error("Failed to add item to cart. Please try again.");
+        }
+    };
 
+    const removeFromCart = async (productId) => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/cart/remove`, { data: { id: productId } });
+            setCart(response.data);
+        } catch (error) {
+            console.error("Error removing from cart:", error);
+        }
+    };
 
-  const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity < 1 || isNaN(newQuantity)) return;
-    setCart((prevCart) => ({
-      items: prevCart.items.map((item) =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
-      ),
-    }));
-  };
+    const updateQuantity = async (productId, newQuantity) => {
+        try {
+            const response = await axios.patch(`${BASE_URL}/cart/update`, { id: productId, quantity: newQuantity });
+            setCart(response.data);
+        } catch (error) {
+            console.error("Error updating cart:", error);
+        }
+    };
 
-  return (
-    <CartContext.Provider value={{ cart: cart.items, addToCart, removeFromCart, updateQuantity }}>
-      {children}
-    </CartContext.Provider>
-  );
+    const clearCart = async () => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/cart`);
+            setCart(response.data);
+        } catch (error) {
+            console.error("Error clearing cart:", error);
+        }
+    };
+
+    return (
+        <CartContext.Provider
+            value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}
+        >
+            {children}
+        </CartContext.Provider>
+    );
 }
 
 export function useCart() {
-  const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
-  return context;
+    const context = useContext(CartContext);
+    if (context === undefined) {
+        throw new Error("useCart must be used within a CartProvider");
+    }
+    return context;
 }

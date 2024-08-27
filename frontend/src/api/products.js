@@ -1,6 +1,8 @@
 import axios from "axios";
+import { SERVER_URL } from "../constants";
 
-const BASE_URL = "https://e-commerce-server-nc1j.onrender.com/api/v1";
+
+const BASE_URL = SERVER_URL || "http://localhost:5000/api/v1"
 
 export const getProducts = async () => {
 	try {

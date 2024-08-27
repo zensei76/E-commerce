@@ -4,8 +4,7 @@ import { useCart } from "../context/cartContext.js"
 
 export function Header({ categories, selectedCategory, setSelectedCategory }) {
 	const { cart } = useCart();
-	const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
+	const totalItems = cart.totalItems;
 	return (
 		<header className='border-b'>
 			<div className='container mx-auto px-4 sm:px-6 lg:px-8'>

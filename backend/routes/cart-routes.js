@@ -1,15 +1,18 @@
 import { Router } from "express";
-import { sendCart, sendProduct, sendProducts } from "../controllers/product-controllers.js";
+import {
+	addToCart,
+	clearCart,
+	removeFromCart,
+	sendCart,
+	updateCart,
+} from "../controllers/cart-controllers.js";
 
+const cartRoutes = Router();
 
-
-const cartRoutes = Router()
-
-
-
-cartRoutes.get("/", sendProducts);//domain/api/v1/cart/
-cartRoutes.get("/", sendProducts);//domain/api/v1/cart/
-cartRoutes.get("/", sendProducts);//domain/api/v1/cart/
-
+cartRoutes.get("/", sendCart); //domain/api/v1/cart/
+cartRoutes.post("/add", addToCart); //domain/api/v1/cart/add
+cartRoutes.delete("/remove", removeFromCart); //domain/api/v1/cart/remove
+cartRoutes.delete("/", clearCart); //domain/api/v1/cart/remove-all
+cartRoutes.patch("/update", updateCart); //domain/api/v1/cart/
 
 export default cartRoutes;

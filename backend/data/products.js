@@ -247,3 +247,4 @@ export const categoryData = [
   "men's clothing",
   "women's clothing"
 ]
+

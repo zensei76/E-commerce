@@ -4,14 +4,11 @@ import CartItem from "../component/CartItem";
 import { toast } from "sonner";
 
 export default function Cart() {
-  const { cart, updateCart, removeFromCart } = useCart();
+  const { cart, clearCart } = useCart();
   const [discountCode, setDiscountCode] = useState("");
   const [discount, setDiscount] = useState(0);
   
-  const subtotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const subtotal = cart.totalPrice;
   const total = subtotal - discount;
 
   const applyDiscount = () => {
@@ -34,24 +31,18 @@ export default function Cart() {
     }
   };
 
-  const clearCart = () => {
-    cart.forEach(item => removeFromCart(item.id));
-  };
-
   return (
     <div className="container mx-auto px-4 py-8 ">
       <h1 className='text-3xl font-bold mb-8'>Your Cart</h1>
-      {cart.length === 0 ? (
+      {cart.items.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
           <div className='md:col-span-2'>
-            {cart.map((item) => (
+            {cart.items.map((item) => (
               <CartItem 
                 key={item.id} 
-                item={item} 
-                updateQuantity={(newQuantity) => updateCart(item.id, newQuantity)}
-                removeFromCart={() => removeFromCart(item.id)}
+                item={item}
               />
             ))}
           </div>

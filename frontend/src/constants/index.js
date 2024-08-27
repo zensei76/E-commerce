@@ -1,0 +1,1 @@
+export const SERVER_URL = "https://e-commerce-server-nc1j.onrender.com";

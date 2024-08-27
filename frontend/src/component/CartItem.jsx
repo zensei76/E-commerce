@@ -1,5 +1,6 @@
-import {useCart} from "../context/cartContext"
-export default function CartItem({item}) {
+import { useCart } from "../context/cartContext";
+
+export default function CartItem({ item }) {
 	const { updateQuantity, removeFromCart } = useCart();
 	return (
 		<div className='flex items-center border-b py-4'>
@@ -15,7 +16,9 @@ export default function CartItem({item}) {
 				<p className='text-gray-600'>${item.price}</p>
 				<div className='flex items-center mt-2'>
 					<button
-						onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} // Ensure quantity never goes below 1
+						onClick={() =>
+							updateQuantity(item.id, Math.max(1, item.quantity - 1))
+						}
 						className='bg-gray-300 px-2 py-1 rounded'
 					>
 						-
