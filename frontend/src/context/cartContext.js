@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 const CartContext = createContext(undefined);
 
-const BASE_URL = SERVER_URL || "http://localhost:5000/api/v1";
+const BASE_URL = `${SERVER_URL}/api/v1`;
 
 export function CartProvider({ children }) {
     const [cart, setCart] = useState({ items: [], totalItems: 0, totalPrice: 0 });
