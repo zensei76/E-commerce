@@ -39,24 +39,26 @@ function App() {
 			: products.filter((product) => product.category === selectedCategory);
 
 	return (
-		<div className="flex flex-col min-h-screen">
-		<Header
-		  categories={categories}
-		  selectedCategory={selectedCategory}
-		  setSelectedCategory={setSelectedCategory}
-		/>
-		<main className="flex-grow">
-		  <Routes>
-			<Route
-			  path='/'
-			  element={<Home products={filteredProducts} isLoading={isLoading} />}
+		<div className='flex flex-col min-h-screen'>
+			<Header
+				categories={categories}
+				selectedCategory={selectedCategory}
+				setSelectedCategory={setSelectedCategory}
 			/>
-			<Route path='/cart' element={<Cart />} />
-			<Route path='/product/:id' element={<Product />} />
-		  </Routes>
-		</main>
-		<Footer />
-	  </div>
+			<main className='flex-grow'>
+				<Routes>
+					<Route
+						path='/'
+						element={
+							<Home products={filteredProducts} isLoading={isLoading} />
+						}
+					/>
+					<Route path='/cart' element={<Cart />} />
+					<Route path='/product/:id' element={<Product />} />
+				</Routes>
+			</main>
+			<Footer />
+		</div>
 	);
 }
 

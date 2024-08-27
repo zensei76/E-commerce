@@ -18,7 +18,7 @@ export default function AddToCartButton({ product, variant = "default" }) {
     }`,
     fullWidth: `mt-4 w-full z-10 ${
       isAdded ? "bg-green-800" : "bg-gray-800"
-    } border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500`,
+    } border border-transparent rounded-b-xl py-2 px-4 flex items-center justify-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500`,
   };
 
   return (
